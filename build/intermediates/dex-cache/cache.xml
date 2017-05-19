@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\gabri\OneDrive\Documentos\WorkSpaces\GitHub\Android\Exemplo_ListWiew_Spinner\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\gabri\OneDrive\Documentos\WorkSpaces\GitHub\Android\Exemplo_ListWiew_Spinner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_f3ae615b5d10dd88d7c62faaa551c44b1b1166eb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\gabri\OneDrive\Documentos\WorkSpaces\GitHub\Android\Exemplo_ListWiew_Spinner\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="324da572db2f57b97a6c4c8702b75db19b776c77">
+        <dex dex="C:\Users\gabri\OneDrive\Documentos\WorkSpaces\GitHub\Android\Exemplo_ListWiew_Spinner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_f6866bbdf41b3831edfa395e86688b04c876e816\classes.dex" />
+    </item>
+
+</items>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Tavares List</string>
+    <string name="lbl_titulo">Sua Lista!</string>
+    <string name="btn_adicionar">Add</string>
+    <string name="lbl_item">Item</string>
+    <string name="btn_remover">Remove</string>
+
+    <string name="medida_Litro">Litro</string>
+    <string name="medida_Kg">Kilo</string>
+
+
+</resources>
