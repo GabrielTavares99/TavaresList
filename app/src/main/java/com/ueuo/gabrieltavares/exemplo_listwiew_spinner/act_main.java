@@ -8,6 +8,8 @@ import android.view.*;
 import com.ueuo.gabrieltavares.exemplo_listwiew_spinner.dao.ItemDAO;
 import com.ueuo.gabrieltavares.exemplo_listwiew_spinner.modelo.Item;
 
+import java.util.List;
+
 public class act_main extends AppCompatActivity implements View.OnClickListener{
 
     private EditText txt_Item;
@@ -17,7 +19,7 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
 
     //Classe genética de array para add itens
     private ArrayAdapter<String> adpOpcoes;
-    private ArrayAdapter<String> adpItens;
+    private ArrayAdapter<Item> adpItens;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,19 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
         adpOpcoes.add("5 unidades");
 
         //Só exibe uma linha no meu listView
-        adpItens = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+        adpItens = new ArrayAdapter<Item>(this,android.R.layout.simple_list_item_1);
         list_Itens.setAdapter(adpItens);
+
+        ItemDAO itemDAO = new ItemDAO(this);
+
+        List<Item> listaItens = itemDAO.buscaItens();
+
+        itemDAO.close();
+
+        for (Item item : listaItens){
+            adpItens.add(item);
+        }
+
 
     }
 
@@ -66,16 +79,15 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
 
                 itemDAO.close();
 
-                String itemAdd = txt_Item.getText().toString();
-                itemAdd += " - "+ spn_Opcoes.getSelectedItem();
-                adpItens.add(itemAdd);
-
+                //String itemAdd = txt_Item.getText().toString();
+                //itemAdd += " - "+ spn_Opcoes.getSelectedItem();
+                //adpItens.add(itemAdd);
 
                 break;
             case R.id.btn_remover:
                 if (adpItens.getCount() > 0){
-                    String item2 = adpItens.getItem(adpItens.getCount()-1);
-                    adpItens.remove(item2);
+                   // String item2 = adpItens.getItem(adpItens.getCount()-1);
+                    //adpItens.remove(item2);
                 }
                 break;
 
