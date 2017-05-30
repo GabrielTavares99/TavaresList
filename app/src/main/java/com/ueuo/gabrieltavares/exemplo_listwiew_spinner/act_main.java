@@ -14,7 +14,7 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
 
     private EditText txt_Item;
     private Spinner spn_Opcoes;
-    private Button btn_adicionar, btn_remover;
+    private Button btn_adicionar;
     private ListView list_Itens;
 
     //Classe genética de array para add itens
@@ -29,10 +29,9 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
         txt_Item = (EditText) findViewById(R.id.txt_item);
         spn_Opcoes = (Spinner) findViewById(R.id.spin_opcoes);
         btn_adicionar = (Button) findViewById(R.id.btn_adicionar);
-        btn_remover = (Button) findViewById(R.id.btn_remover);
+
         list_Itens = (ListView) findViewById(R.id.list_itens);
 
-        btn_remover.setOnClickListener(this);
         btn_adicionar.setOnClickListener(this);
 
         //Dou a forma/layout para o spinner
@@ -52,6 +51,14 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
         adpItens = new ArrayAdapter<Item>(this,android.R.layout.simple_list_item_1);
         list_Itens.setAdapter(adpItens);
 
+        registerForContextMenu(list_Itens);
+
+    }
+
+    private void carregaLista() {
+
+        adpItens.clear();
+
         ItemDAO itemDAO = new ItemDAO(this);
 
         List<Item> listaItens = itemDAO.buscaItens();
@@ -61,8 +68,38 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
         for (Item item : listaItens){
             adpItens.add(item);
         }
+    }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        //CRIANDO ITEM DO MENU
+        MenuItem item_Deletar = menu.add("DELETAR");
+        //DOU UMA AÇÃO PRA ELE
+        item_Deletar.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+                //RECUPERO O ITEM SELECIONADO - MENU INFO INFORMA PRA GENTE
+                Item itemRecuperado = (Item) list_Itens.getItemAtPosition(info.position);
 
+                ItemDAO itemDAO = new ItemDAO(act_main.this);
+                if (itemDAO.delete(itemRecuperado)){
+                    itemDAO.close();
+                    Toast.makeText(act_main.this,"Deletar a tarefa "+itemRecuperado.getDescricao(),Toast.LENGTH_LONG).show();
+                    carregaLista();
+                }else {
+                    Toast.makeText(act_main.this,"Falha Catastrófica!",Toast.LENGTH_LONG).show();
+                }
+
+                return false;
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregaLista();
     }
 
     @Override
@@ -79,18 +116,13 @@ public class act_main extends AppCompatActivity implements View.OnClickListener{
 
                 itemDAO.close();
 
+
+                carregaLista();
                 //String itemAdd = txt_Item.getText().toString();
                 //itemAdd += " - "+ spn_Opcoes.getSelectedItem();
                 //adpItens.add(itemAdd);
 
                 break;
-            case R.id.btn_remover:
-                if (adpItens.getCount() > 0){
-                   // String item2 = adpItens.getItem(adpItens.getCount()-1);
-                    //adpItens.remove(item2);
-                }
-                break;
-
             default:
                 break;
         }

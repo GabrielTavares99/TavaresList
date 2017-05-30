@@ -53,6 +53,18 @@ public class ItemDAO extends SQLiteOpenHelper{
 
     }
 
+    public boolean delete(Item item){
+        try{
+            SQLiteDatabase db = getWritableDatabase();
+            String[] parametro = {String.valueOf(item.getId())};
+            db.delete("tb_itens","id = ?",parametro);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+
+    }
+
     public List<Item> buscaItens() {
         List<Item> listItens = new ArrayList<Item>();
         String sql = "SELECT * FROM tb_itens;";
